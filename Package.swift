@@ -16,5 +16,10 @@ let package = Package(
             ],
             path: "Sources"
         ),
+        .testTarget(
+            name: "contacts-cli-tests",
+            dependencies: ["contacts-cli"],
+            path: "Tests"
+        ),
     ]
 )
