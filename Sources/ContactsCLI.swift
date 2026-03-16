@@ -1,6 +1,6 @@
 import ArgumentParser
+import Foundation
 
-@main
 struct ContactsCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "contacts-cli",
@@ -15,4 +15,19 @@ struct ContactsCLI: ParsableCommand {
             DeleteCommand.self,
         ]
     )
+}
+
+@main
+enum CLI {
+    static func main() {
+        do {
+            var command = try ContactsCLI.parseAsRoot()
+            try command.run()
+        } catch let error as ContactError {
+            fputs("Error: \(error.description)\n", stderr)
+            exit(error.exitCode)
+        } catch {
+            ContactsCLI.exit(withError: error)
+        }
+    }
 }
